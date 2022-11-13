@@ -105,14 +105,53 @@ async function onFormSubmit(event) {
   }
 
 
-  async function movieData() {
+  async function fetchMovieData(category) {
 
-    const response = await fetch("https://striveschool-api.herokuapp.com/api/movies/horror", options);
-     const movies = await response.json();
+    //return fetch(`https://striveschool-api.herokuapp.com/api/movies/${category}`, options)
+    const resp = await fetch(`https://striveschool-api.herokuapp.com/api/movies/${category}`, options)
+    const data = await resp.json()
+  
+    return data
+  }
+    
+
+function formatMovie(movies) {
+
+  let moviesHTML = ""
+
+  for (let movie of movies) {
+    
+    moviesHTML += `<tr>
+    <th scope="row">#</th>
+    <td>${movie.name}</td>
+    <td>${movie.category}</td>
+    <td>${movie.description}</td>
+    <td><button type="button" class="btn btn-danger" onclick="deleteMovie(${movie._id})">Delete</button>
+    <button type="button" class="btn btn-success" onclick="Edit()">Edit</button></td>
+  </tr>`
+  }
+  return moviesHTML
+}
+
+   async function displayMovies() {
+
+    const response = await fetch("https://striveschool-api.herokuapp.com/api/movies/", options);
+    let categories = await response.json()
+
+    let allMovies = []
+    for (let category of categories) {
+      
+      let data = await fetchMovieData(category)
+    
+      allMovies = allMovies.concat(data)
+      //allMovies = [...allMovies, ...fetchMovieData(category)]
+    }
+
+
 
     let table = document.querySelector(".table")
 
-    let moviesHTML = ` <thead>
+    table.innerHTML = ` <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
@@ -121,44 +160,37 @@ async function onFormSubmit(event) {
       <th scope="col">Action</th>
     </tr>
   </thead>
-  <tbody>`
-
-    for (let movie of movies) {
-
-
-        moviesHTML += `<tr>
-        <th scope="row">1</th>
-        <td>${movie.name}</td>
-        <td>${movie.category}</td>
-        <td>${movie.description}</td>
-        <td><button type="button" class="btn btn-danger" onclick="${() => Delete(movie._id)}">Delete</button>
-<button type="button" class="btn btn-success" onclick="Edit()">Edit</button></td>
-      </tr>`
-    }
-
-    moviesHTML += `</tbody>`
-    table.innerHTML = moviesHTML
+  <tbody>${formatMovie(allMovies)}</tbody>`
+    
 };
 
-movieData()
+displayMovies()
 
 
-  async function Delete(movieId) {
-
+  async function deleteMovie(movieId) {
+    
     const options = {
         method: "DELETE",
-        body: JSON.stringify(),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmUyZmQ0YmUzZDAwMTU4NDYwNDkiLCJpYXQiOjE2NjgwODczNDMsImV4cCI6MTY2OTI5Njk0M30.f0hqMCGmxQuJWfmA5JwepuldqFJL51QtNp2M1aDnsSE",
       },
       };
-
-
+  
     await fetch(`https://striveschool-api.herokuapp.com/api/movies/${movieId}`, options);
+    await displayMovies()
+
+    console.log("cicusmicus")
     
-    movieData()
   }
+
+ 
+  function logging() {
+
+    console.log("cicusmicus")
+
+  }
+
 
   async function Edit () {
 
