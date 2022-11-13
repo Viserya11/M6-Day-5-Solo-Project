@@ -176,8 +176,10 @@ displayMovies()
           "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmUyZmQ0YmUzZDAwMTU4NDYwNDkiLCJpYXQiOjE2NjgwODczNDMsImV4cCI6MTY2OTI5Njk0M30.f0hqMCGmxQuJWfmA5JwepuldqFJL51QtNp2M1aDnsSE",
       },
       };
-  
+    
+    
     await fetch(`https://striveschool-api.herokuapp.com/api/movies/${movieId}`, options);
+    await response.json()
     await displayMovies()
 
     console.log("cicusmicus")
