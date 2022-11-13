@@ -151,6 +151,7 @@ function formatMovie(movies) {
 
     let table = document.querySelector(".table")
 
+
     table.innerHTML = ` <thead>
     <tr>
       <th scope="col">#</th>
