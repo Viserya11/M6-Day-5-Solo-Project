@@ -126,7 +126,7 @@ function formatMovie(movies) {
     <td>${movie.name}</td>
     <td>${movie.category}</td>
     <td>${movie.description}</td>
-    <td><button type="button" class="btn btn-danger" onclick="deleteMovie(${movie._id})">Delete</button>
+    <td><button type="button" value="${movie._id}" class="btn btn-danger" onclick="deleteMovie(event)">Delete</button>
     <button type="button" class="btn btn-success" onclick="Edit()">Edit</button></td>
   </tr>`
   }
@@ -167,19 +167,20 @@ function formatMovie(movies) {
 displayMovies()
 
 
-  async function deleteMovie(movieId) {
+  async function deleteMovie(event) {
+
+    event.preventDefault()
+
+    
     
     const options = {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
           "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmUyZmQ0YmUzZDAwMTU4NDYwNDkiLCJpYXQiOjE2NjgwODczNDMsImV4cCI6MTY2OTI5Njk0M30.f0hqMCGmxQuJWfmA5JwepuldqFJL51QtNp2M1aDnsSE",
       },
       };
     
-    
-    await fetch(`https://striveschool-api.herokuapp.com/api/movies/${movieId}`, options);
-    await response.json()
+    await fetch("https://striveschool-api.herokuapp.com/api/movies/" + event.target.value, options);
     await displayMovies()
 
     console.log("cicusmicus")
@@ -198,3 +199,4 @@ displayMovies()
 
   }
 
+ 
