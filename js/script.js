@@ -195,7 +195,7 @@ displayMovies()
   }
 
 
-  async function Edit () {
+  async function editMovie () {
 
   }
 
