@@ -127,7 +127,7 @@ function formatMovie(movies) {
     <td>${movie.category}</td>
     <td>${movie.description}</td>
     <td><button type="button" value="${movie._id}" class="btn btn-danger" onclick="deleteMovie(event)">Delete</button>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">Edit</button></td>
   </tr>`
   }
   return moviesHTML
