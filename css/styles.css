@@ -139,6 +139,7 @@ input[type="checkbox"] {
     width: 500px;
     margin: 0 auto;
     font-size: 2em;
+    background-color: #000;
 }
 
 button.btn.btn-primary {
@@ -153,4 +154,10 @@ button.btn.btn-primary {
 
 input {
     border-radius: 5px;
+}
+
+.modal-content {
+background-color: #000;
+border: solid 3px #e40a13;
+color:#f3f3f3
 }
